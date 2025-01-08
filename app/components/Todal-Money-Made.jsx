@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import COLORS from "../constants/COLORS";
 
 const DATA = Array.from({ length: 31 }, (_, i) => ({
   day: i,
@@ -9,7 +10,17 @@ const DATA = Array.from({ length: 31 }, (_, i) => ({
 const screenWidth = Dimensions.get("window").width;
 const RevenueChart = () => {
   return (
-    <View className="mx-4 shadow-black p-4">
+    <View
+      className="mx-4 p-4"
+      style={{
+        shadowColor: "rgba(0, 0, 0, 1)", // Base color for shadows
+        shadowOpacity: 0.23, // Dominant shadow's opacity
+        shadowOffset: { width: 0, height: 10 }, // Larger shadow offset
+        shadowRadius: 10, // Approximate blur for larger shadow
+        borderRadius: 10,
+        elevation: 12,
+      }}
+    >
       <Text
         style={{
           fontFamily: "Poppins-Light",
@@ -27,22 +38,25 @@ const RevenueChart = () => {
             },
           ],
         }}
-        width={300} // from react-native
+        width={screenWidth - 60} // from react-native
         height={220}
         chartConfig={{
-          backgroundColor: "#1cc910",
+          backgroundColor: "rgb(28, 201, 16)",
           backgroundGradientFrom: "#eff3ff",
           backgroundGradientTo: "#efefef",
-          color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`,
+          color: (opacity = 1) => `rgba(28, 201, 16, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             borderRadius: 16,
           },
           propsForDots: {
             r: "6",
-            strokeWidth: "2",
-            stroke: "#ffa726",
+            fill: COLORS.primary,
           },
+          // fillShadowGradient: "rgb(0, 128, 0)",
+          fillShadowGradientFrom: COLORS.primary,
+          fillShadowGradientTo: "rgb(10, 212, 10)", // Fill gradient for the area under the curve
+          fillShadowGradientOpacity: 0.5,
         }}
         bezier
         style={{
