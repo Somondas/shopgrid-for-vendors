@@ -1,12 +1,8 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
-import COLORS from "../constants/COLORS";
+import COLORS from "../../constants/COLORS";
 
-const DATA = Array.from({ length: 31 }, (_, i) => ({
-  day: i,
-  highTmp: 40 + 30 * Math.random(),
-}));
 const screenWidth = Dimensions.get("window").width;
 const RevenueChart = () => {
   return (
@@ -25,16 +21,24 @@ const RevenueChart = () => {
         style={{
           fontFamily: "Poppins-Light",
         }}
-        className="text-xl font-light my-1"
+        className="text-lg font-light my-1"
       >
         Total Money Made
+      </Text>
+      <Text
+        style={{
+          fontFamily: "Poppins-Light",
+        }}
+        className="text-xl font-bold my-1"
+      >
+        &#8377;32,455
       </Text>
       <LineChart
         data={{
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43],
+              data: [500, 1000, 3455, 7878, 439, 7800],
             },
           ],
         }}
@@ -44,7 +48,7 @@ const RevenueChart = () => {
           backgroundColor: "rgb(28, 201, 16)",
           backgroundGradientFrom: "#eff3ff",
           backgroundGradientTo: "#efefef",
-          color: (opacity = 1) => `rgba(28, 201, 16, ${opacity})`,
+          color: (opacity = 1) => `rgba(28, 201, 16n, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             borderRadius: 16,
@@ -53,7 +57,6 @@ const RevenueChart = () => {
             r: "6",
             fill: COLORS.primary,
           },
-          // fillShadowGradient: "rgb(0, 128, 0)",
           fillShadowGradientFrom: COLORS.primary,
           fillShadowGradientTo: "rgb(10, 212, 10)", // Fill gradient for the area under the curve
           fillShadowGradientOpacity: 0.5,
