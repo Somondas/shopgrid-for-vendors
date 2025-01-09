@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import COLORS from "../../constants/COLORS";
 
@@ -9,12 +9,14 @@ const RevenueChart = () => {
     <View
       className="mx-4 p-4"
       style={{
-        shadowColor: "rgba(0, 0, 0, 1)", // Base color for shadows
-        shadowOpacity: 0.23, // Dominant shadow's opacity
-        shadowOffset: { width: 0, height: 10 }, // Larger shadow offset
-        shadowRadius: 10, // Approximate blur for larger shadow
-        borderRadius: 10,
-        elevation: 12,
+        shadowColor: "rgba(0, 0, 0, 1)", // Shadow color for iOS
+        shadowOpacity: 0.23, // Shadow opacity for iOS
+        shadowOffset: { width: 0, height: 10 }, // Shadow offset for iOS
+        shadowRadius: 10, // Shadow blur for iOS
+        elevation: 12, // Elevation for Android
+        borderRadius: 10, // Border radius
+        height: "auto", // Height of the component
+        backgroundColor: "white", // Ensure background color is set for shadow visibility
       }}
     >
       <Text
@@ -33,40 +35,58 @@ const RevenueChart = () => {
       >
         &#8377;32,455
       </Text>
-      <LineChart
-        data={{
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-          datasets: [
-            {
-              data: [500, 1000, 3455, 7878, 439, 7800],
+      <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+        <LineChart
+          data={{
+            labels: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+            datasets: [
+              {
+                data: [
+                  500, 1000, 3455, 7878, 439, 7800, 434, 678, 900, 456, 789,
+                  123,
+                ],
+              },
+            ],
+          }}
+          width={630} // from react-native
+          height={220}
+          chartConfig={{
+            backgroundColor: "rgb(28, 201, 16)",
+            backgroundGradientFrom: "#ffffff",
+            backgroundGradientTo: "#ffffff",
+            color: (opacity = 1) => `rgba(28, 201, 16, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
             },
-          ],
-        }}
-        width={screenWidth - 60} // from react-native
-        height={220}
-        chartConfig={{
-          backgroundColor: "rgb(28, 201, 16)",
-          backgroundGradientFrom: "#eff3ff",
-          backgroundGradientTo: "#efefef",
-          color: (opacity = 1) => `rgba(28, 201, 16n, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: {
+            propsForDots: {
+              r: "6",
+              fill: COLORS.primary,
+            },
+            fillShadowGradientFrom: COLORS.primary,
+            fillShadowGradientTo: "rgb(10, 212, 10)", // Fill gradient for the area under the curve
+            fillShadowGradientOpacity: 0.5,
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
             borderRadius: 16,
-          },
-          propsForDots: {
-            r: "6",
-            fill: COLORS.primary,
-          },
-          fillShadowGradientFrom: COLORS.primary,
-          fillShadowGradientTo: "rgb(10, 212, 10)", // Fill gradient for the area under the curve
-          fillShadowGradientOpacity: 0.5,
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+          }}
+        />
+      </ScrollView>
     </View>
   );
 };
